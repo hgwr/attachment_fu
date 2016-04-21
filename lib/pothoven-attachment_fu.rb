@@ -7,6 +7,7 @@ if defined?(Rails::Engine)
 
     initializer "attachment_fu" do
       require 'geometry'
+      require 'unicode_sanitizer'
 
       ActiveRecord::Base.send(:extend, Technoweenie::AttachmentFu::ActMethods)
       Technoweenie::AttachmentFu.tempfile_path = ATTACHMENT_FU_TEMPFILE_PATH if Object.const_defined?(:ATTACHMENT_FU_TEMPFILE_PATH)
@@ -16,6 +17,7 @@ if defined?(Rails::Engine)
 else
   # Rails <= 2
   require 'geometry'
+  require 'unicode_sanitizer'
 
   ActiveSupport::Dependencies.autoload_paths << File.expand_path("..", __FILE__)
 
