@@ -451,8 +451,8 @@ module Technoweenie # :nodoc:
             # get only the filename, not the whole path
             name.gsub! /^.*(\\|\/)/, ''
 
-            # Finally, replace all non alphanumeric, underscore or periods with underscore
-            name.gsub! /[^A-Za-z0-9\.\-]/, '_'
+            # Finally, replace all characters except UnicodeSanitizer::WHITELIST with underscore
+            name = UnicodeSanitizer.sanitize(name)
           end
         end
 
