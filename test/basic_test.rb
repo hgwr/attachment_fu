@@ -42,10 +42,10 @@ class BasicTest < Test::Unit::TestCase
     assert_equal 'foo.bar',    @attachment.filename
 
     @attachment.filename = 'f o!O-.bar'
-    assert_equal 'f_o_O-.bar', @attachment.filename
+    assert_equal 'f o!O-.bar', @attachment.filename
 
-#    @attachment.filename = 'sheeps_says_bææ'
-#    assert_equal 'sheeps_says_b__', @attachment.filename
+    @attachment.filename = 'あいうえお'
+    assert_equal 'あいうえお', @attachment.filename
 
     @attachment.filename = nil
     assert_nil @attachment.filename
