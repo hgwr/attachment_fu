@@ -188,7 +188,9 @@ module Technoweenie # :nodoc:
     end
 
     module ClassMethods
-      delegate :content_types, :to => ::Technoweenie::AttachmentFu
+      def content_types
+        ::Technoweenie::AttachmentFu.content_types
+      end
 
       # Performs common validations for attachment models.
       def validates_as_attachment
