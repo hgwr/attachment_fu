@@ -1,50 +1,53 @@
 module Technoweenie # :nodoc:
   module AttachmentFu # :nodoc:
-    def self.default_processors
+    def default_processors
       %w(ImageScience Rmagick MiniMagick Gd2 CoreImage)
     end
     
-    def self.tempfile_path
+    def tempfile_path
       @@tempfile_path ||= File.join(Rails.root, 'tmp', 'attachment_fu')
     end
 
-    def self.tempfile_path=(path)
+    def tempfile_path=(path)
       @@tempfile_path = path
     end
 
-    def self.content_types
-      [
-        'image/jpeg',
-        'image/pjpeg',
-        'image/jpg',
-        'image/gif',
-        'image/png',
-        'image/x-png',
-        'image/jpg',
-        'image/x-ms-bmp',
-        'image/bmp',
-        'image/x-bmp',
-        'image/x-bitmap',
-        'image/x-xbitmap',
-        'image/x-win-bitmap',
-        'image/x-windows-bmp',
-        'image/ms-bmp',
-        'application/bmp',
-        'application/x-bmp',
-        'application/x-win-bitmap',
-        'application/preview',
-        'image/jp_',
-        'application/jpg',
-        'application/x-jpg',
-        'image/pipeg',
-        'image/vnd.swiftview-jpeg',
-        'image/x-xbitmap',
-        'application/png',
-        'application/x-png',
-        'image/gi_',
-        'image/x-citrix-pjpeg'
-      ]
+    CONTENT_TYPES = [
+      'image/jpeg',
+      'image/pjpeg',
+      'image/jpg',
+      'image/gif',
+      'image/png',
+      'image/x-png',
+      'image/jpg',
+      'image/x-ms-bmp',
+      'image/bmp',
+      'image/x-bmp',
+      'image/x-bitmap',
+      'image/x-xbitmap',
+      'image/x-win-bitmap',
+      'image/x-windows-bmp',
+      'image/ms-bmp',
+      'application/bmp',
+      'application/x-bmp',
+      'application/x-win-bitmap',
+      'application/preview',
+      'image/jp_',
+      'application/jpg',
+      'application/x-jpg',
+      'image/pipeg',
+      'image/vnd.swiftview-jpeg',
+      'image/x-xbitmap',
+      'application/png',
+      'application/x-png',
+      'image/gi_',
+      'image/x-citrix-pjpeg'
+    ]
+    def content_types
+      CONTENT_TYPES.dup
     end
+
+    module_function :default_processors, :tempfile_path, :tempfile_path=, :content_types
 
     class ThumbnailError < StandardError;  end
     class AttachmentError < StandardError; end
@@ -189,7 +192,7 @@ module Technoweenie # :nodoc:
 
     module ClassMethods
       def content_types
-        ::Technoweenie::AttachmentFu.content_types
+        ::Technoweenie::AttachmentFu::CONTENT_TYPES
       end
 
       # Performs common validations for attachment models.
